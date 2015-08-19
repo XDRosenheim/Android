@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Russian Roulette</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="txtWasHeHurtTrue">You\'re dead, mate.</string>
+    <string name="txtWasHeHurtFalse">You survived, mate!</string>
+    <string name="btnTxtShoot">Shoot Yourself</string>
+</resources>

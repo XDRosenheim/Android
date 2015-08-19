@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Change Colour</string>
+    <string name="Title">Color change here.</string>
+    <string name="Button">Change color.</string>
+</resources>
