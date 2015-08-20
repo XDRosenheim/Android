@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Triple Activity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_name">Insert name here.</string>
+    <string name="title_activity_game">Favorite game.</string>
+</resources>
