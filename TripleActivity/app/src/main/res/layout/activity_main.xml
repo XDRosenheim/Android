@@ -30,7 +30,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name: "
+        android:text="@string/txtNameField"
         android:id="@+id/txtName"
         android:layout_below="@+id/btnGame"
         android:layout_alignParentStart="true" />
@@ -38,7 +38,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Game: "
+        android:text="@string/txtGameField"
         android:id="@+id/txtGame"
         android:layout_below="@+id/txtName"
         android:layout_alignParentStart="true" />

@@ -26,8 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if (v.getId() == R.id.btnOld) {
             this.txtWrite.setText("Old Button was pressed.");
-        }
-        else if(v == newBtn){
+        } else if (v == newBtn) {
             this.txtWrite.setText("New Button was pressed.");
         }
         // else if(((Button)v).getText().equals("Old Button"));

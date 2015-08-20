@@ -15,6 +15,6 @@
         android:id="@+id/txtName"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:hint="Insert name here" />
+        android:hint="@string/title_activity_name" />
 
 </RelativeLayout>

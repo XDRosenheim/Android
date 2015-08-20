@@ -16,7 +16,7 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ludo"
+            android:text="@string/gameLudo"
             android:id="@+id/rbLudo"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
@@ -26,7 +26,7 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Matador"
+            android:text="@string/gameMatador"
             android:id="@+id/rbMatador"
             android:layout_below="@+id/rbLudo"
             android:layout_alignParentStart="true"
@@ -36,7 +36,7 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Skak"
+            android:text="@string/gameChess"
             android:id="@+id/rbSkak"
             android:layout_below="@+id/rbMatador"
             android:layout_alignParentStart="true"
@@ -46,7 +46,7 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Backgammon"
+            android:text="@string/gameBackgammon"
             android:id="@+id/rbBackgammon"
             android:layout_below="@+id/rbSkak"
             android:layout_alignParentStart="true"
