@@ -19,7 +19,6 @@ public class gameActivity extends Activity {
     public void onRadioButtonClick(View view){
         boolean checked = ((RadioButton) view).isChecked();
 
-        // Check which radio button was clicked
         switch(view.getId()) {
             case R.id.rbLudo:
                 if (checked)

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import static dk.rosenheim.android.tripleactivity.gameActivity.*;
+import static dk.rosenheim.android.tripleactivity.nameActivity.*;
 
 public class MainActivity extends Activity {
 
@@ -22,8 +23,8 @@ public class MainActivity extends Activity {
             txtGame.setText(txtGame.getText().toString() + favoriteGame.toString());
         }
 
-        if (nameActivity.txtName != null){
-            txtName.setText(txtName.getText().toString() + txtName.toString());
+        if (personName != null){
+            txtName.setText(txtName.getText().toString() + personName.toString());
         }
 
     }

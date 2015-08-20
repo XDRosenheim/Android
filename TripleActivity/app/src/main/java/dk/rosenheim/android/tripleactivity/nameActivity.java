@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 public class nameActivity extends Activity {
 
-    public static String txtName;
+    public static String personName;
     TextView myText;
 
     @Override
@@ -20,11 +20,9 @@ public class nameActivity extends Activity {
         myText = (TextView)findViewById(R.id.txtName);
     }
 
-    public void onSaveClick(View view){
-        txtName = myText.getText().toString();
-
-        TextView textView = new TextView(this);
-        textView.setText("Saved");
-        setContentView(textView);
+    @Override
+    public void onBackPressed() {
+        personName = myText.getText().toString();
+        super.onBackPressed();
     }
 }
