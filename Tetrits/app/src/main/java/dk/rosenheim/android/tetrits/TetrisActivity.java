@@ -3,6 +3,7 @@ package dk.rosenheim.android.tetrits;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.FrameLayout;
 
 public class TetrisActivity extends Activity {
 
@@ -12,7 +13,14 @@ public class TetrisActivity extends Activity {
         setContentView(R.layout.activity_tetris);
 
         Intent intent = getIntent();
-        int rows = intent.getIntExtra("Rows", 20);
         int cols = intent.getIntExtra("Cols", 12);
+        int rows = intent.getIntExtra("Rows", 20);
+
+        Game game = new Game(this, cols, rows);
+        FrameLayout fl = (FrameLayout)findViewById(R.id.playLayout);
+        fl.addView(game);
+
+        Thread t = new Thread(game);
+        t.start();
     }
 }

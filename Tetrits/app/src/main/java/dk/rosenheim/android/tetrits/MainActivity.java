@@ -8,16 +8,16 @@ import android.widget.EditText;
 
 public class MainActivity extends Activity {
 
-    EditText inputGameRows, inputGameCols;
-    int setGameRows, setGameCols;
+    EditText inputGameCols, inputGameRows;
+    int setGameCols, setGameRows;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        inputGameRows = (EditText) findViewById(R.id.editRow);
         inputGameCols = (EditText) findViewById(R.id.editCol);
+        inputGameRows = (EditText) findViewById(R.id.editRow);
     }
 
     public void onPlayClick(View view) {
@@ -26,8 +26,8 @@ public class MainActivity extends Activity {
         int cols = Integer.parseInt(inputGameCols.getText().toString());
 
         if (20 <= Integer.parseInt(inputGameRows.getText().toString()) || 12 <= Integer.parseInt(inputGameCols.getText().toString())) {
-            intent.putExtra("Rows", rows);
             intent.putExtra("Cols", cols);
+            intent.putExtra("Rows", rows);
             startActivityForResult(intent, 0);
         }
     }
