@@ -7,9 +7,12 @@ import android.view.View;
 public abstract class BasicGame extends View implements Runnable{
 
     Playscreen playscreen;
+    final int COLS, ROWS;
 
     public BasicGame(Context context, int cols, int rows) {
         super(context);
+        COLS = cols;
+        ROWS = rows;
     }
 
     @Override
@@ -25,4 +28,9 @@ public abstract class BasicGame extends View implements Runnable{
     }
 
      abstract void update(Canvas canvas);
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        playscreen = new Playscreen(w, h, COLS, ROWS);
+    }
 }
