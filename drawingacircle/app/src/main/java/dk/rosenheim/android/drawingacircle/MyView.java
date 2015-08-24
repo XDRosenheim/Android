@@ -2,66 +2,70 @@ package dk.rosenheim.android.drawingacircle;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
+import java.util.Random;
+
 public class MyView extends View implements Runnable {
-
     Context con;
-    Drawable billed;
-
     int x = 100;
-    int y = 100;
-    int picHeight;
-    int picWidth;
-    int xSpeed = 10;
-    int ySpeed = 10;
-    int screenWidth = getScreenWidth();
-    int screenHeight = getScreenHeight();
+    int y = 200;
+    int xSpeed = 5;
+    int ySpeed = 5;
+
+    int screenWidth, screenHeight;
+
+    Drawable billed;
+    int pictHeight, pictWidth;
+    Random ran = new Random();
 
     public MyView(Context context) {
         super(context);
         con = context;
         billed = con.getDrawable(R.drawable.android_logo);
-        picHeight = billed.getIntrinsicHeight();
-        picWidth = billed.getMinimumWidth();
-    }
-
-    public int getScreenWidth() {
-        return screenWidth;
-    }
-
-    public int getScreenHeight() {
-        return screenHeight;
+        pictHeight = billed.getMinimumHeight();
+        pictWidth = billed.getMinimumWidth();
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        screenHeight = h;
         screenWidth = w;
+        screenHeight = h;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        /**
-         * Make a circle.
-         * Paint paint = new Paint();
-         * paint.setColor(Color.RED);
-         * canvas.drawCircle(100, 100, 50, paint); */
+        Paint paint = new Paint();
+        paint.setColor(Color.BLUE);
+        canvas.drawCircle(100, 100, 50, paint);
 
-        billed.setBounds(200, 200, 300, 300);
+        billed.setBounds(x, y, x + pictWidth, y + pictHeight);
         billed.draw(canvas);
 
         x += xSpeed;
-        if (x > (screenWidth - picHeight) || x < 0) {
+        if (x > (screenWidth - pictWidth) || x < 0) {
+            if (x < 0) x = 0;
+            if (x > (screenWidth - pictWidth)) x = (screenWidth - pictWidth);
             xSpeed = -xSpeed;
+
+            if (xSpeed < 0) xSpeed = -(ran.nextInt(20) + 1);
+            if (xSpeed > 0) xSpeed = ran.nextInt(20) + 1;
         }
-        y += ySpeed;
-        if (y > (screenHeight - picWidth) || y < 0) {
+
+        y = y + ySpeed;
+        if (y > (screenHeight - pictHeight) || y < 0) {
+            if (y < 0) y = 0;
+            if (y > (screenHeight - pictHeight)) y = (screenHeight - pictHeight);
+
             ySpeed = -ySpeed;
+            if (ySpeed < 0) ySpeed = -(ran.nextInt(20) + 1);
+            if (ySpeed > 0) ySpeed = ran.nextInt(20) + 1;
         }
     }
 
@@ -70,8 +74,8 @@ public class MyView extends View implements Runnable {
         while (true) {
             postInvalidate();
             try {
-                Thread.sleep(100);
-            } catch (Exception e) {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }

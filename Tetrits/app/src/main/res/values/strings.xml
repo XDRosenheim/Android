@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Tetrits</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="txtRow">Rows</string>
+    <string name="txtCol">Coloums</string>
+    <string name="brnPlay"><![CDATA[Save & Play]]></string>
+    <string name="title_activity_tetris">TetrisActivity</string>
+</resources>
