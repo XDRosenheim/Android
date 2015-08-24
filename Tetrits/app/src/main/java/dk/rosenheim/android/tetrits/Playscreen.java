@@ -19,5 +19,7 @@ public class Playscreen {
 
         LEFT_X = ((MAXWIDTH / 2) - (COLS / 2)) * BRICK_SIZE / 2;
         TOP_Y = 100; // TODO fix for different sized screens.
+
+        screenArray = new Field[COLS][ROWS];
     }
 }
