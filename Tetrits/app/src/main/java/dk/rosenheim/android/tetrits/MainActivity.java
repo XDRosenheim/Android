@@ -9,7 +9,6 @@ import android.widget.EditText;
 public class MainActivity extends Activity {
 
     EditText inputGameCols, inputGameRows;
-    int setGameCols, setGameRows;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

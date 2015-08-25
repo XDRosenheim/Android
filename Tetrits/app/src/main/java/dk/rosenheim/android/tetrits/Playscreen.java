@@ -1,15 +1,25 @@
 package dk.rosenheim.android.tetrits;
 
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
+
+import java.util.Random;
+
 public class Playscreen {
 
     final int MAXWIDTH, MAXHEIGHT,
             COLS, ROWS,
             LEFT_X, TOP_Y,
-            BRICK_SIZE = 20;
+            BRICK_SIZE;
 
     Field[][] screenArray;
+    Paint paint;
+    Drawable[] images;
 
-    public Playscreen(int w, int h, int cols, int rows) {
+    public Playscreen(Context context, int w, int h, int rows, int cols) {
 
         MAXWIDTH = w;
         MAXHEIGHT = h;
@@ -17,9 +27,87 @@ public class Playscreen {
         COLS = cols;
         ROWS = rows;
 
-        LEFT_X = ((MAXWIDTH / 2) - (COLS / 2)) * BRICK_SIZE / 2;
+        screenArray = new Field[ROWS][COLS];
+
+        images = new Drawable[7];
+        images[0] = context.getDrawable(R.drawable.red);
+        images[1] = context.getDrawable(R.drawable.green);
+        images[2] = context.getDrawable(R.drawable.blue);
+        images[3] = context.getDrawable(R.drawable.purple);
+        images[4] = context.getDrawable(R.drawable.yellow);
+        images[5] = context.getDrawable(R.drawable.cyan);
+        images[6] = context.getDrawable(R.drawable.brown);
+
+        BRICK_SIZE = images[0].getMinimumWidth();
+
+        LEFT_X = (MAXWIDTH - COLS * BRICK_SIZE) / 2;
         TOP_Y = 100; // TODO fix for different sized screens.
 
-        screenArray = new Field[COLS][ROWS];
+
+    }
+
+    public void paintScreen(Canvas canvas) {
+        paint = new Paint();
+        paint.setColor(Color.CYAN);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setAntiAlias(true);
+        paint.setStrokeWidth(2);
+        canvas.drawRect(LEFT_X, TOP_Y, LEFT_X + BRICK_SIZE * COLS, TOP_Y + BRICK_SIZE * ROWS, paint);
+
+        for (int row = 0; row < ROWS; row++)
+            for (int col = 0; col < COLS; col++) {
+                Field f = screenArray[row][col];
+                if (f != null) {
+
+                    Drawable d = images[f.getColor().ordinal()];
+
+                    d.setBounds(LEFT_X + col * BRICK_SIZE,
+                            TOP_Y + row * BRICK_SIZE,
+                            LEFT_X + (col * BRICK_SIZE) + BRICK_SIZE,
+                            TOP_Y + (row * BRICK_SIZE) + BRICK_SIZE);
+                    d.draw(canvas);
+                }
+            }
+
+    }
+
+    public void fillScreenArrayRandom() {
+        Random rand = new Random();
+        for (int row = 0; row < ROWS; row++) {
+            for (int col = 0; col < COLS; col++) {
+                int i = rand.nextInt(images.length + 1);
+                if (i == 7) {
+                    screenArray[row][col] = null;
+                } else {
+                    screenArray[row][col] = new Field(FigColors.values()[i], false);
+                }
+            }
+        }
+    }
+
+    public int lineScore() {
+        boolean success;
+        int score = 0;
+        for (int row = 0; row < ROWS; row++) {
+            success = true;
+            for (int col = 0; col < COLS; col++) {
+                if (screenArray[row][col] == null) {
+                    success = false;
+                    break;
+                }
+            }
+            if (success) {
+                score++;
+                for (int moveRow = row; moveRow > 0; moveRow--) {
+                    for (int col = 0; col < COLS; col++) {
+                        screenArray[moveRow][col] = screenArray[moveRow - 1][col];
+                    }
+                }
+                for (int col = 0; col < COLS; col++) {
+                    screenArray[0][col] = null;
+                }
+            }
+        }
+        return score;
     }
 }
