@@ -1,20 +1,18 @@
 package dk.rosenheim.android.tetrits;
 
-import android.content.Context;
 import android.graphics.Canvas;
 import android.view.MotionEvent;
 import android.view.View;
 
 public class Game extends BasicGame {
+	final int FALL_INTERVAL = 10;
+	int fallCounter = 0;
 	private int _score = 0;
 	private int _xRef, _yRef;
 	private boolean turnedOnce;
 
-	final int FALL_INTERVAL = 10;
-	int fallCounter = 0;
-
-	public Game(Context context, int cols, int rows) {
-		super(context, cols, rows);
+	public Game(TetrisActivity activity, int cols, int rows) {
+		super(activity, cols, rows);
 	}
 
 	@Override
@@ -72,7 +70,7 @@ public class Game extends BasicGame {
 					_yRef = y;
 				}
 				// Get down! Grenade!
-				if (_yRef + y > playscreen.BRICK_SIZE * 90){
+				if (y - _yRef > playscreen.BRICK_SIZE * 2) {
 					figCurrent.rowPos++;
 					if (playscreen.isCollision(figCurrent)) {
 						figCurrent.rowPos--;
@@ -80,12 +78,13 @@ public class Game extends BasicGame {
 					_yRef = y;
 				}
 				// Turn right!
-				if (_xRef - y > playscreen.BRICK_SIZE){
-					if (!turnedOnce){
+				if (_yRef - y > playscreen.BRICK_SIZE) {
+					if (!turnedOnce) {
 						figCurrent.turnRight();
 						if (playscreen.isCollision(figCurrent)) {
 							figCurrent.turnLeft();
 						}
+						turnedOnce = true;
 					}
 					_yRef = y;
 					_xRef = x;

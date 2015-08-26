@@ -16,16 +16,15 @@ public abstract class BasicGame extends View implements Runnable, View.OnTouchLi
 	Random ranFig = new Random();
 
 	Playscreen playscreen;
-	Context context;
+	TetrisActivity activity;
 	protected boolean quit = false;
 	private long sleepMillis = 50;
 
-	public BasicGame(Context context, int cols, int rows) {
-		super(context);
-		this.context = context;
+	public BasicGame(TetrisActivity activity, int cols, int rows) {
+		super(activity);
+		this.activity = activity;
 		COLS = cols;
 		ROWS = rows;
-		//SetBackgroundColor(Color.BLACK);
 
 		figures = new Figure[7];
 		figures[0] = new FigO(COLS / 2);
@@ -44,13 +43,20 @@ public abstract class BasicGame extends View implements Runnable, View.OnTouchLi
 	@Override
 	public void run() {
 		while (!quit) {
-			postInvalidate(); // Calls onDraw
+			postInvalidate();
 			try {
 				Thread.sleep(sleepMillis);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		activity.finish();
+
 	}
 
 	@Override
@@ -64,6 +70,6 @@ public abstract class BasicGame extends View implements Runnable, View.OnTouchLi
 
 	@Override
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-		playscreen = new Playscreen(context, w, h, ROWS, COLS);
+		playscreen = new Playscreen(activity, w, h, ROWS, COLS);
 	}
 }
