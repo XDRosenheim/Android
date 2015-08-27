@@ -1,13 +1,14 @@
 package dk.rosenheim.android.tetrits;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.View;
 
 public class Game extends BasicGame {
 	final int FALL_INTERVAL = 10;
 	int fallCounter = 0;
-	private int _score = 0;
 	private int _xRef, _yRef;
 	private boolean turnedOnce;
 
@@ -18,25 +19,30 @@ public class Game extends BasicGame {
 	@Override
 	void update(Canvas canvas) {
 		fallCounter++;
-		if (fallCounter == FALL_INTERVAL) {
-			fallCounter = 0;
-			figCurrent.rowPos++;
-			if (playscreen.isCollision(figCurrent)) {
-				figCurrent.rowPos--;
-				playscreen.placeFigure(figCurrent);
-				figCurrent.reset(COLS / 2);
-				figCurrent = figures[ranFig.nextInt(figures.length)];
+		switch (fallCounter) {
+			case FALL_INTERVAL:
+				fallCounter = 0;
+				figCurrent.rowPos++;
 				if (playscreen.isCollision(figCurrent)) {
-					quit = true;
+					figCurrent.rowPos--;
+					playscreen.placeFigure(figCurrent);
+					figCurrent.reset(COLS / 2);
+					figCurrent = figures[ranFig.nextInt(figures.length)];
+					score += playscreen.lineScore();
+					if (playscreen.isCollision(figCurrent)) quit = true;
 				}
-			}
+				break;
 		}
-		if (!quit) {
-			playscreen.placeFigure(figCurrent);
-			_score += playscreen.lineScore();
-			playscreen.paintScreen(canvas);
-			playscreen.removeFigure(figCurrent);
-		}
+		if (!quit) playscreen.placeFigure(figCurrent);
+
+		Paint p = new Paint();
+		p.setColor(Color.WHITE);
+		p.setTextSize(30);
+		canvas.drawText("Score: " + score, 50, 50, p);
+
+		playscreen.paintScreen(canvas);
+		if (!quit) playscreen.removeFigure(figCurrent);
+
 	}
 
 	@Override

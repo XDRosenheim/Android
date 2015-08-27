@@ -1,23 +1,31 @@
 package dk.rosenheim.android.tetrits;
 
-import android.content.Context;
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.view.View;
 
 import java.util.Random;
 
-import dk.rosenheim.android.tetrits.Figures.*;
+import dk.rosenheim.android.tetrits.Figures.FigI;
+import dk.rosenheim.android.tetrits.Figures.FigJ;
+import dk.rosenheim.android.tetrits.Figures.FigL;
+import dk.rosenheim.android.tetrits.Figures.FigO;
+import dk.rosenheim.android.tetrits.Figures.FigS;
+import dk.rosenheim.android.tetrits.Figures.FigT;
+import dk.rosenheim.android.tetrits.Figures.FigZ;
+import dk.rosenheim.android.tetrits.Figures.Figure;
 
 public abstract class BasicGame extends View implements Runnable, View.OnTouchListener {
 
 	final int COLS, ROWS;
+	protected int score = 0;
+	protected boolean quit = false;
 	Figure[] figures;
 	Figure figCurrent;
 	Random ranFig = new Random();
-
 	Playscreen playscreen;
 	TetrisActivity activity;
-	protected boolean quit = false;
 	private long sleepMillis = 50;
 
 	public BasicGame(TetrisActivity activity, int cols, int rows) {
@@ -55,6 +63,10 @@ public abstract class BasicGame extends View implements Runnable, View.OnTouchLi
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+
+		Intent intent = activity.getIntent();
+		intent.putExtra("Score", score);
+		activity.setResult(Activity.RESULT_OK, intent);
 		activity.finish();
 
 	}

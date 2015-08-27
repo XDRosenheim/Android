@@ -1,13 +1,10 @@
 package dk.rosenheim.android.tetrits;
 
-import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
-
-import java.util.Random;
 
 import dk.rosenheim.android.tetrits.Figures.Figure;
 
@@ -86,7 +83,7 @@ public class Playscreen {
 				}
 			}
 			if (success) {
-				score++;
+				score += 10;
 				for (int moveRow = row; moveRow > 0; moveRow--) {
 					for (int col = 0; col < COLS; col++) {
 						screenArray[moveRow][col] = screenArray[moveRow - 1][col];
@@ -117,9 +114,11 @@ public class Playscreen {
 		for (Point p : fig.figBricksUsed) {
 			if (p.x + fig.colPos < 0 || p.x + fig.colPos >= COLS
 					|| p.y + fig.rowPos < 0 || p.y + fig.rowPos >= ROWS) {
-				collision = true; break;
+				collision = true;
+				break;
 			} else if (screenArray[p.y + fig.rowPos][p.x + fig.colPos] != null) {
-				collision = true; break;
+				collision = true;
+				break;
 			}
 		}
 		return collision;

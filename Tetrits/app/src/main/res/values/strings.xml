@@ -7,4 +7,6 @@
     <string name="txtCol">Coloums</string>
     <string name="brnPlay"><![CDATA[Save & Play]]></string>
     <string name="title_activity_tetris">TetrisActivity</string>
+    <string name="score">Score:</string>
+    <string name="txtHighscore">Score: </string>
 </resources>
