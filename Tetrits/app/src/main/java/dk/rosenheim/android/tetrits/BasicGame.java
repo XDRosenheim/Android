@@ -25,14 +25,20 @@ public abstract class BasicGame extends View implements Runnable, View.OnTouchLi
 	Figure figCurrent;
 	Random ranFig = new Random();
 	Playscreen playscreen;
+<<<<<<< HEAD
 	TetrisActivity activity;
+=======
+	Context context;
+	protected boolean quit = false;
+>>>>>>> parent of 9a23c1b... Fixes!
 	private long sleepMillis = 50;
 
-	public BasicGame(TetrisActivity activity, int cols, int rows) {
-		super(activity);
-		this.activity = activity;
+	public BasicGame(Context context, int cols, int rows) {
+		super(context);
+		this.context = context;
 		COLS = cols;
 		ROWS = rows;
+		//SetBackgroundColor(Color.BLACK);
 
 		figures = new Figure[7];
 		figures[0] = new FigO(COLS / 2);
@@ -51,13 +57,14 @@ public abstract class BasicGame extends View implements Runnable, View.OnTouchLi
 	@Override
 	public void run() {
 		while (!quit) {
-			postInvalidate();
+			postInvalidate(); // Calls onDraw
 			try {
 				Thread.sleep(sleepMillis);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+<<<<<<< HEAD
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
@@ -69,6 +76,8 @@ public abstract class BasicGame extends View implements Runnable, View.OnTouchLi
 		activity.setResult(Activity.RESULT_OK, intent);
 		activity.finish();
 
+=======
+>>>>>>> parent of 9a23c1b... Fixes!
 	}
 
 	@Override
@@ -82,6 +91,6 @@ public abstract class BasicGame extends View implements Runnable, View.OnTouchLi
 
 	@Override
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-		playscreen = new Playscreen(activity, w, h, ROWS, COLS);
+		playscreen = new Playscreen(context, w, h, ROWS, COLS);
 	}
 }

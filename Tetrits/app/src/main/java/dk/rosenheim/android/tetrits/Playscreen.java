@@ -19,7 +19,7 @@ public class Playscreen {
 	Paint paint;
 	Drawable[] images;
 
-	public Playscreen(TetrisActivity activity, int w, int h, int rows, int cols) {
+	public Playscreen(Context context, int w, int h, int rows, int cols) {
 
 		MAXWIDTH = w;
 		MAXHEIGHT = h;
@@ -30,13 +30,13 @@ public class Playscreen {
 		screenArray = new Field[ROWS][COLS];
 
 		images = new Drawable[7];
-		images[0] = activity.getDrawable(R.drawable.red);
-		images[1] = activity.getDrawable(R.drawable.green);
-		images[2] = activity.getDrawable(R.drawable.blue);
-		images[3] = activity.getDrawable(R.drawable.purple);
-		images[4] = activity.getDrawable(R.drawable.yellow);
-		images[5] = activity.getDrawable(R.drawable.cyan);
-		images[6] = activity.getDrawable(R.drawable.brown);
+		images[0] = context.getDrawable(R.drawable.red);
+		images[1] = context.getDrawable(R.drawable.green);
+		images[2] = context.getDrawable(R.drawable.blue);
+		images[3] = context.getDrawable(R.drawable.purple);
+		images[4] = context.getDrawable(R.drawable.yellow);
+		images[5] = context.getDrawable(R.drawable.cyan);
+		images[6] = context.getDrawable(R.drawable.brown);
 
 		BRICK_SIZE = images[0].getMinimumWidth();
 
@@ -69,6 +69,20 @@ public class Playscreen {
 				}
 			}
 
+	}
+
+	public void fillScreenArrayRandom() {
+		Random rand = new Random();
+		for (int row = 0; row < ROWS; row++) {
+			for (int col = 0; col < COLS; col++) {
+				int i = rand.nextInt(images.length + 1);
+				if (i == 7) {
+					screenArray[row][col] = null;
+				} else {
+					screenArray[row][col] = new Field(FigColors.values()[i], false);
+				}
+			}
+		}
 	}
 
 	public int lineScore() {
